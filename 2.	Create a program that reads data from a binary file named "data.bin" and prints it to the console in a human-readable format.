@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+int main() {
+    FILE *fp;
+    char filename[] = "data.bin";
+    int data;
+    
+    fp = fopen(filename, "rb"); // open file in binary mode for reading
+    
+    if (fp == NULL) {
+        printf("Error: could not open file.\n");
+        return 1;
+    }
+    
+    // read data from file and print to console
+    while (fread(&data, sizeof(int), 1, fp) == 1) {
+        printf("%d\n", data);
+    }
+    
+    fclose(fp); // close file
+    
+    return 0;
+}
