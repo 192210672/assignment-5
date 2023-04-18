@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define BUFFER_SIZE 1024
+
+int main() {
+    FILE *input_file = fopen("input.txt", "r");
+    FILE *output_file = fopen("output.txt", "w");
+
+    if (input_file == NULL || output_file == NULL) {
+        printf("Failed to open input or output file.\n");
+        exit(1);
+    }
+
+    char buffer[BUFFER_SIZE];
+
+    while (fgets(buffer, BUFFER_SIZE, input_file) != NULL) {
+        char *ptr = buffer;
+
+        while ((ptr = strstr(ptr, "red")) != NULL) {
+            strncpy(ptr, "blue", 4);
+            ptr += 4;
+        }
+
+        fputs(buffer, output_file);
+    }
+
+    fclose(input_file);
+    fclose(output_file);
+
+    printf("Successfully wrote modified text to output.txt.\n");
+
+    return 0;
+}
